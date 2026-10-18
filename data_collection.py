@@ -202,13 +202,13 @@ if __name__ == "__main__":
 
     code_root   = r"/home/kemove/ll/simlingo_liulei"                  # 修改位置1：项目根目录
     carla_root  = "/home/kemove/ll/simlingo/carla0915"                # 修改位置2：carla根目录
-    root_folder = r"database/"                                        # 修改位置3：数据集存放的根目录
+    root_folder = r"/home/kemove/ll/database/"                        # 修改位置3：数据集存放的根目录
 
     date = datetime.today().strftime("%Y_%m_%d_%H_%M_%S")             # 时间格式:年_月_日
     dataset_name = "simlingo_v2_" + date                              # 文件夹命名格式(示例): simlingo_v2_2026_02_27
     data_save_directory = root_folder + dataset_name                  # 收集数据集存放的位置: database/simlingo_v2_2026_02_27/
 
-    route_folder = f"{code_root}/data/simlingo"                       # 修改位置4：收集路线文件(.xml)存放的位置
+    route_folder = f"/home/kemove/ll/data/simlingo"                   # 修改位置4：收集路线文件(.xml)存放的位置
     if not DEBUG:
         ####################### 加载多条收集路线 #######################
         routes_train = glob.glob(f"{route_folder}/mine_train/*.xml", recursive=True)     # 训练路线的 .xml 文件
