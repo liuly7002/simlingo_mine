@@ -15,6 +15,7 @@ import json
 from pathlib import Path
 import random
 import re
+import xml.etree.ElementTree as ET
 
 DEBUG = True   # For debug
 
@@ -235,17 +236,26 @@ if __name__ == "__main__":
         for idx, route in enumerate(routes, start=1):
             seed_counter += 1
 
-            # 从 route 字符串路径中解析出属于哪个 Town。
-            try:
-                town = re.search(r"Town(\d+)", route).group(0)
-            except Exception:
-                if "validation" in route:
-                    town = "Town13"
-                elif "training" in route:
-                    town = "Town12"
-                else:
-                    print(f"[SKIP] Town not found in route: {route}")
-                    continue
+            # 从路线 XML 中读取地图名称
+            if not os.path.isfile(route):
+                raise FileNotFoundError(f"Route XML not found: {route}")
+
+            tree = ET.parse(route)
+            route_elements = list(tree.getroot().iter("route"))
+
+            if not route_elements:
+                raise ValueError(f"No <route> element found: {route}")
+
+            towns = {elem.attrib.get("town") for elem in route_elements}
+
+            if len(towns) != 1 or None in towns:
+                raise ValueError(
+                    f"Inconsistent or missing town in route XML: {route}, towns={towns}"
+                )
+
+            town = towns.pop()
+            print(f"[Debug] Town from XML = {town}")
+
 
             scenario_type = route.split("/")[-5:-1]
             scenario_type = "/".join(scenario_type)
