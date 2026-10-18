@@ -16,7 +16,7 @@ from pathlib import Path
 import random
 import re
 
-DEBUG = False   # For debug
+DEBUG = True   # For debug
 
 def make_bash(code_dir, route_file_number, agent_name, route_file, ckeckpoint_endpoint, save_pth, seed, carla_root, town, repetition):
     print(f"[Debug] Writing ...")
@@ -209,16 +209,16 @@ if __name__ == "__main__":
 
     route_folder = f"{code_root}/data/simlingo"                       # 修改位置4：收集路线文件(.xml)存放的位置
     if not DEBUG:
-
-        ####################### 原收集路线 #######################
+        ####################### 加载多条收集路线 #######################
         routes_train = glob.glob(f"{route_folder}/mine_train/*.xml", recursive=True)     # 训练路线的 .xml 文件
         routes_val = glob.glob(f"{route_folder}/mine_val/*.xml", recursive=True)         # 验证/评估路线的 .xml 文件
         routes = routes_train + routes_val                                               # 用于收集数据的全部路线
         random.seed(120)
         random.shuffle(routes)
     else:  # true for debug
+        ####################### 加载一条收集路线 #######################
         print("[Debug] There's only one route, which makes debugging easier ......")
-        routes = ["/home/kemove/ll/simlingo/data/simlingo/training_1_scenario/routes_training/random_weather_seed_1_balanced_150/1.xml"]
+        routes = ["/home/kemove/ll/A论文/露天矿山VLA/data/simlingo/mine_train/1tu3_wandao.xml"]  # 修改位置5：收集路线文件(.xml)存放的位置
 
     if len(routes) == 0:
         raise RuntimeError(f"No route xml found under: {route_folder}")
@@ -257,8 +257,7 @@ if __name__ == "__main__":
             print(f"[Debug] Ckpt save path = {ckpt_endpoint}")
             print(f"[Debug] Data save path = {save_path}")
 
-            # agent = f"{code_root}/team_code/data_agent.py"
-            agent = f"{code_root}/team_code/data_agent_surround.py"
+            agent = f"{code_root}/team_code/data_agent.py"
             # print(f"[Debug] Agent = {agent}")
 
             # logs folder (keep the same slurm-like structure for compatibility)

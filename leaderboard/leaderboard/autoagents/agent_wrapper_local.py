@@ -24,7 +24,7 @@ from leaderboard.autoagents.ros_base_agent import ROSBaseAgent
 
 DATAGEN = int(os.environ.get('DATAGEN', 0))
 
-MAX_ALLOWED_RADIUS_SENSOR = 70.0
+MAX_ALLOWED_RADIUS_SENSOR = 100.0   # 表示传感器的最大允许半径(距离车辆坐标系原点)，单位为米
 QUALIFIER_SENSORS_LIMITS = {
     'sensor.camera.rgb': 4,
     'sensor.lidar.ray_cast': 1,

@@ -346,7 +346,7 @@ class GlobalConfig:
     # -----------------------------------------------------------------------------
     # Sensor config
     # -----------------------------------------------------------------------------
-    self.lidar_pos = [0.0, 0.0, 2.5]  # x, y, z mounting position of the LiDAR
+    self.lidar_pos = [0.0, 0.0, 7.0]  # x, y, z mounting position of the LiDAR  LiDAR的高度是修改这里的Z值
     self.lidar_rot = [0.0, 0.0, -90.0]  # Roll Pitch Yaw of LiDAR in degree
     self.lidar_rotation_frequency = 10  # Number of Hz at which the Lidar operates
     # Number of points the LiDAR generates per second.

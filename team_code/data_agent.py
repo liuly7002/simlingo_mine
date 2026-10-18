@@ -156,6 +156,7 @@ class DataAgent(AutoPilot):
                     'id': 'rgb_augmented'
             }]
 
+        # 定义LiDAR传感器的参数，包括位置、旋转、旋转频率和每秒点数
         result.append({
                 'type': 'sensor.lidar.ray_cast',
                 'x': self.config.lidar_pos[0],
